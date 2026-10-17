@@ -1,0 +1,73 @@
+:root {
+  --bg: #f4f5f7;
+  --card: #ffffff;
+  --text: #1b1f27;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --brand: #fc5830;
+  --brand-dark: #0b0d5d;
+  --erro: #b91c1c;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+.topo { max-width: 1100px; margin: 0 auto; padding: 24px 16px 8px; }
+.topo h1 { margin: 0 0 4px; font-size: 24px; color: var(--brand-dark); }
+.topo p { margin: 0; color: var(--muted); }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; padding: 16px; }
+@media (min-width: 900px) {
+  .layout { grid-template-columns: 340px minmax(0, 1fr); align-items: start; }
+}
+.painel, .resultado {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px;
+}
+.painel label { display: block; margin-bottom: 14px; font-size: 13px; font-weight: 600; }
+.painel input[type="text"], .painel input[type="email"], .painel input[type="tel"], .painel select {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 9px 10px;
+  font: inherit;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
+.painel input:focus, .painel select:focus { outline: 2px solid var(--brand); outline-offset: 1px; }
+.painel .check { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+.painel .check input { margin: 0; }
+.painel label:has(input:disabled) { color: var(--muted); }
+.preview {
+  min-height: 160px;
+  padding: 20px;
+  background: #fff;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+.preview.erro { color: var(--erro); font-size: 14px; }
+.acoes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.acoes button {
+  padding: 10px 16px;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--brand);
+  border: 1px solid var(--brand);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.acoes button.secundario { color: var(--brand-dark); background: #fff; border-color: var(--line); }
+.acoes button:disabled { opacity: 0.5; cursor: not-allowed; }
+.acoes button.erro { color: #fff; background: var(--erro); border-color: var(--erro); }
+.tutorial { margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 14px; }
+.tutorial summary { font-weight: 600; cursor: pointer; }
+.tutorial ol { padding-left: 20px; line-height: 1.6; }
+.tutorial kbd { padding: 0 5px; font-family: inherit; background: #f9fafb; border: 1px solid var(--line); border-radius: 4px; }
+.tutorial .nota { color: var(--muted); }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assinaturas Convertize</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topo">
+    <h1>Gerador de assinatura</h1>
+    <p>Preencha, confira o preview e copie para o Gmail.</p>
+  </header>
+  <main class="layout">
+    <form id="form" class="painel" autocomplete="off">
+      <label>Tema
+        <select name="theme" id="theme"></select>
+      </label>
+      <label>Nome
+        <input name="nome" type="text" placeholder="Seu nome" required>
+      </label>
+      <label>Cargo
+        <input name="cargo" type="text" placeholder="Ex.: Desenvolvedora Front-End">
+      </label>
+      <label class="check"><input name="mostrarCargo" type="checkbox" checked> Mostrar cargo</label>
+      <label>E-mail
+        <input name="email" type="email" placeholder="nome@convertize.com.br">
+      </label>
+      <label>Celular
+        <input name="celular" type="tel" placeholder="+55 (16) 99999-9999">
+      </label>
+      <label>Ramal
+        <input name="ramal" type="text" inputmode="numeric" placeholder="201">
+      </label>
+      <label class="check"><input name="endereco" type="checkbox"> Mostrar endereço</label>
+      <label class="check"><input name="disclaimer" type="checkbox"> Incluir disclaimer</label>
+    </form>
+
+    <section class="resultado">
+      <div id="preview" class="preview" aria-live="polite"></div>
+      <div class="acoes">
+        <button type="button" id="copiar-gmail">Copiar para o Gmail</button>
+        <button type="button" id="copiar-html" class="secundario">Copiar código HTML</button>
+      </div>
+      <details class="tutorial">
+        <summary>Como configurar no Gmail</summary>
+        <ol>
+          <li>Clique em <strong>Copiar para o Gmail</strong> acima.</li>
+          <li>No Gmail, clique na engrenagem (canto superior direito) e em <strong>Ver todas as configurações</strong>.</li>
+          <li>Na aba <strong>Geral</strong>, role até <strong>Assinatura</strong> e clique em <strong>Criar nova</strong>. Dê um nome, por exemplo "Convertize".</li>
+          <li>Clique dentro da caixa de edição da assinatura e cole com <kbd>Ctrl</kbd>+<kbd>V</kbd> (Windows) ou <kbd>Cmd</kbd>+<kbd>V</kbd> (Mac).</li>
+          <li>Em <strong>Padrões de assinatura</strong>, selecione essa assinatura para <em>novos e-mails</em> e para <em>respostas/encaminhamentos</em>.</li>
+          <li>Role até o fim da página e clique em <strong>Salvar alterações</strong>.</li>
+        </ol>
+        <p class="nota">As imagens vêm de um CDN. Se não aparecerem de imediato, envie um e-mail de teste para você mesmo e confira.</p>
+      </details>
+    </section>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
