@@ -74,3 +74,12 @@ test('bloco sem fechamento lança erro', () => {
 test('fechamento sem abertura lança erro', () => {
   assert.throws(() => render('x{{/a}}', {}), /Fechamento inesperado: a/);
 });
+
+test('blocos aninhados com a mesma chave', () => {
+  assert.equal(render('{{#a}}1{{#a}}2{{/a}}3{{/a}}', { a: true }), '123');
+  assert.equal(render('{{#a}}1{{#a}}2{{/a}}3{{/a}}', { a: false }), '');
+});
+
+test('erro de sintaxe dentro de bloco falso ainda é reportado', () => {
+  assert.throws(() => render('{{#x}}{{#a}}{{/x}}', { x: false }), /Bloco não fechado: a/);
+});
