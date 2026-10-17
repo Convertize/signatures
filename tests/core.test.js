@@ -123,7 +123,7 @@ test('htmlToText remove indentação do template', () => {
 });
 
 test('withLeadingBreaks prefixa linhas em branco no formato do Gmail', () => {
-  assert.equal(withLeadingBreaks('<p>x</p>'), '<div><br></div><div><br></div><p>x</p>');
+  assert.equal(withLeadingBreaks('<p>x</p>'), '<div><br></div><div><br></div><div><br></div><p>x</p>');
   assert.equal(withLeadingBreaks('<p>x</p>', 0), '<p>x</p>');
   assert.equal(withLeadingBreaks('<p>x</p>', 1), '<div><br></div><p>x</p>');
 });

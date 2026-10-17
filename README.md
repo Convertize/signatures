@@ -6,7 +6,7 @@ Gerador estático de assinaturas, com versões em `v1/`, `v2/`, `v3/`. A página
 
 Abra a página publicada, preencha os campos e clique em **Copiar para o Gmail**. O tutorial de configuração do Gmail está na própria página, com o link direto para a tela de assinatura do Gmail.
 
-Os dois botões de copiar já incluem duas linhas em branco antes da assinatura.
+Os dois botões de copiar já incluem três linhas em branco antes da assinatura.
 
 Todos os campos podem vir pela URL, para abrir já preenchido:
 
@@ -35,10 +35,10 @@ Ou por código:
 import { renderSignature, copySignature, listVersions } from 'https://cdn.jsdelivr.net/gh/Convertize/signatures@main/lib/signature.js';
 
 const html = await renderSignature({ versao: 'v1', nome: 'Gabriel Galiaso', cargo: 'CEO', ramal: '201', endereco: true, disclaimer: true });
-await copySignature(html); // coloca a assinatura formatada no clipboard, com 2 linhas em branco antes
+await copySignature(html); // coloca a assinatura formatada no clipboard, com 3 linhas em branco antes
 ```
 
-A cópia inclui duas linhas em branco antes da assinatura, para ela não ficar colada no texto do e-mail; ajuste com `copySignature(html, { linhasAntes: 0 })`.
+A cópia inclui três linhas em branco antes da assinatura, para ela não ficar colada no texto do e-mail; ajuste com `copySignature(html, { linhasAntes: 0 })`.
 
 Também disponível em `window.ConvertizeSignature` depois que o script carrega. Atributos do elemento: os mesmos parâmetros, mais `botao-copiar` (mostra um botão "Copiar assinatura") e `base-url` (de onde ler as versões; padrão é o jsDelivr).
 
