@@ -13,13 +13,13 @@
     </tr>
     <tr>
       <td width="20"><div style="width:20px;height:1px;">&nbsp;</div></td>
-      <td colspan="2" valign="top">
+      <td valign="top">
         <div style="font-family:Arial,sans-serif;font-size:12px;color:#0b0d5d;line-height:20px;">
           <strong>RP: {{empresa.telefoneRP}}</strong>&nbsp;-&nbsp;<strong>SP: {{empresa.telefoneSP}}</strong>{{#ramal}}&nbsp;-&nbsp;<strong>Ramal {{ramal}}</strong>{{/ramal}}
           {{#celular}}<br><strong>Celular: {{celular}}</strong>{{/celular}}
           {{#email}}<br><a href="mailto:{{email}}" style="color:#0b0d5d;text-decoration:none;">{{email}}</a>{{/email}}
           <div style="border-top:1px solid #ffe4db;width:390px;margin-top:5px;padding-top:5px;">
-            {{#endereco}}<span style="display:block;color:#323a45;margin-bottom:5px;">{{endereco.linha1}}<br>{{endereco.linha2}}</span>{{/endereco}}
+            {{#endereco}}<div style="color:#323a45;margin-bottom:5px;">{{endereco.linha1}}<br>{{endereco.linha2}}</div>{{/endereco}}
             <a href="{{empresa.redes.facebook}}" style="text-decoration:none;font-size:0;" target="_blank"><img src="{{cdn}}/v1/facebook.png" width="6" height="12" alt="Facebook" style="border:0;padding-right:8px;"></a><a href="{{empresa.redes.twitter}}" style="text-decoration:none;font-size:0;" target="_blank"><img src="{{cdn}}/v1/twitter.png" width="15" height="12" alt="Twitter" style="border:0;padding-right:8px;"></a><a href="{{empresa.redes.linkedin}}" style="text-decoration:none;font-size:0;" target="_blank"><img src="{{cdn}}/v1/linkedin.png" width="13" height="12" alt="LinkedIn" style="border:0;"></a>
           </div>
         </div>
@@ -32,10 +32,10 @@
   <tbody>
     <tr>
       <td style="padding-top:12px;font-size:11px;line-height:16px;color:#8b9194;">
-        <strong style="display:block;margin-bottom:4px;">{{disclaimer.tituloPT}}</strong>
-        <span style="display:block;margin-bottom:12px;">{{disclaimer.textoPT}}</span>
-        <strong style="display:block;margin-bottom:4px;">{{disclaimer.tituloEN}}</strong>
-        <span style="display:block;">{{disclaimer.textoEN}}</span>
+        <div style="font-weight:bold;margin-bottom:4px;">{{disclaimer.tituloPT}}</div>
+        <div style="margin-bottom:12px;">{{disclaimer.textoPT}}</div>
+        <div style="font-weight:bold;margin-bottom:4px;">{{disclaimer.tituloEN}}</div>
+        <div>{{disclaimer.textoEN}}</div>
       </td>
     </tr>
   </tbody>

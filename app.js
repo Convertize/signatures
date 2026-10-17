@@ -46,7 +46,11 @@ function fillForm(params) {
 }
 
 function syncUrl(params) {
-  history.replaceState(null, '', `?${toSearchParams(params)}`);
+  try {
+    history.replaceState(null, '', `?${toSearchParams(params)}`);
+  } catch {
+    /* limite de replaceState do navegador; a URL fica desatualizada, o preview não */
+  }
 }
 
 function showError(err) {
@@ -60,7 +64,7 @@ async function updateToggles(versao) {
   const template = await getVersionTemplate(versao, OPTIONS);
   for (const [field, block] of Object.entries(TOGGLES)) {
     const input = form.elements[field];
-    const supported = template.includes(`{{#${block}}}`);
+    const supported = new RegExp(`\\{\\{#\\s*${block}\\s*\\}\\}`).test(template);
     input.disabled = !supported;
     input.closest('label').title = supported ? '' : 'Esta versão não tem este bloco';
   }
@@ -110,6 +114,8 @@ bindCopy(btnHtml, copyText);
 
 form.addEventListener('input', update);
 form.addEventListener('change', async (event) => {
+  // Campos de texto já disparam update pelo evento input.
+  if (event.target.matches('input[type="text"], input[type="email"], input[type="tel"]')) return;
   if (event.target === versaoSelect) {
     try {
       await updateToggles(versaoSelect.value);

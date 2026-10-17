@@ -53,3 +53,5 @@ test('round-trip URL -> params -> URL -> params', () => {
   const volta = parseParams(new URLSearchParams(toSearchParams(original).toString()));
   assert.deepEqual(volta, original);
 });
+
+test('null é tratado como vazio', () => { assert.deepEqual(parseParams(null), VAZIO); });

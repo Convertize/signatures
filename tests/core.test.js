@@ -117,3 +117,7 @@ test('paramsFromUrl lê a query string', () => {
 test('htmlToText tira tags, converte br e entidades', () => {
   assert.equal(htmlToText('<td><b>Ana &amp; Cia</b><br>CEO</td><p>Rua&nbsp;X</p>'), 'Ana & Cia\nCEO\nRua X');
 });
+
+test('htmlToText remove indentação do template', () => {
+  assert.equal(htmlToText('<div>\n  <b>A</b><br>B\n</div>'), 'A\nB');
+});

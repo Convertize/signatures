@@ -28,6 +28,25 @@ for (const { id } of versions) {
     assert.ok(template.includes(`{{cdn}}/${id}/logo.png`));
   });
 
+  test(`${id}: lint de e-mail (sem <style>, imagens com tamanho e CDN, tabelas balanceadas)`, () => {
+    assert.ok(!/<style/i.test(template), 'não pode ter <style>');
+    // display:block em <img> é seguro no Outlook (remove o espaço sob a imagem); só vale para span/strong.
+    const semImg = template.replace(/<img\b[^>]*>/gi, '');
+    assert.ok(!/display:\s*block/i.test(semImg), 'não usar display:block (Outlook ignora em inline)');
+    const imgs = template.match(/<img\b[^>]*>/gi) || [];
+    assert.ok(imgs.length > 0);
+    for (const img of imgs) {
+      assert.ok(/\bsrc="\{\{cdn\}\}\/[^"]+"/.test(img), `img sem {{cdn}}: ${img}`);
+      assert.ok(/\bwidth="\d+"/.test(img) && /\bheight="\d+"/.test(img), `img sem width/height: ${img}`);
+    }
+    const opens = (template.match(/<table\b/gi) || []).length;
+    const closes = (template.match(/<\/table>/gi) || []).length;
+    assert.equal(opens, closes, 'tabelas desbalanceadas');
+    const tdOpens = (template.match(/<td\b/gi) || []).length;
+    const tdCloses = (template.match(/<\/td>/gi) || []).length;
+    assert.equal(tdOpens, tdCloses, 'td desbalanceados');
+  });
+
   test(`${id}: completo renderiza todos os dados`, () => {
     const html = render(template, buildContext({ versao: id, ...FULL }, { cdn: 'https://cdn.test' }));
     const esperados = [

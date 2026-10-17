@@ -1,6 +1,6 @@
 # Assinaturas de e-mail Convertize
 
-Gerador estático de assinaturas, com versões em `v1/`, `v2/`, `v3/`. Roda no GitHub Pages; biblioteca, temas e imagens são servidos pelo jsDelivr. Sem servidor, sem build.
+Gerador estático de assinaturas, com versões em `v1/`, `v2/`, `v3/`. A página roda no GitHub Pages; a biblioteca, os templates e as imagens são servidos pelo jsDelivr. Sem servidor, sem build.
 
 ## Usar o gerador
 
@@ -44,6 +44,13 @@ Também disponível em `window.ConvertizeSignature` depois que o script carrega.
 2. Use as variáveis `{{nome}} {{cargo}} {{email}} {{celular}} {{ramal}}`, `{{cdn}}/v4/arquivo.png` nas imagens, `{{empresa.telefoneRP}}` etc. de `config.js`, e os blocos opcionais `{{#cargo}}...{{/cargo}}`, `{{#ramal}}`, `{{#celular}}`, `{{#email}}`, `{{#endereco}}` (`{{endereco.linha1}}`, `{{endereco.linha2}}`) e `{{#disclaimer}}` (`{{disclaimer.tituloPT}}`, `{{disclaimer.textoPT}}`, `{{disclaimer.tituloEN}}`, `{{disclaimer.textoEN}}`).
 3. Acrescente `{ "id": "v4", "label": "v4" }` em `versions.json`.
 4. Rode `npm test`: os testes verificam todas as versões listadas.
+
+Cuidados:
+
+- Nunca renomeie nem apague PNGs dentro de `vN/`: as assinaturas já instaladas apontam para essas URLs em `@main` para sempre.
+- Depois de publicar uma versão nova, faça o purge dos arquivos dela no jsDelivr (ver abaixo); até lá o `@main` pode ficar até 12 h apontando para o commit antigo e as imagens dão 404.
+- `base-url` muda só de onde a biblioteca lê `versions.json` e `theme.html`; as imagens (`{{cdn}}`) vêm sempre do jsDelivr, então o preview local de uma versão ainda não publicada aparece sem imagens.
+- Os blocos aceitam espaços internos: `{{#cargo}}` e `{{# cargo }}` são equivalentes.
 
 ## Desenvolvimento
 

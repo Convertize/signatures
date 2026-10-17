@@ -10,7 +10,7 @@
       </td>
       <td width="1" valign="middle" rowspan="3"><div style="width:1px;height:100px;background:#3e4450;"><span></span></div></td>
       <td width="120" valign="bottom" align="center" rowspan="3">
-        <div><img src="{{cdn}}/v3/website.png" width="15" height="15" alt="" style="border:0;"></div>
+        <div><img src="{{cdn}}/v3/website.png" width="18" height="19" alt="" style="border:0;"></div>
         <div><a href="{{empresa.site}}" target="_blank" style="display:inline-block;margin-top:10px;border:2px solid #ffffff;padding:5px 10px;font-size:12px;text-decoration:none;color:#ffffff;border-radius:5px;">nosso site</a></div>
       </td>
     </tr>
@@ -20,12 +20,12 @@
     <tr>
       <td valign="middle">
         <div style="font-size:11px;color:#ffffff;line-height:16px;">
-          <span style="margin-right:5px;"><img src="{{cdn}}/v3/phone.png" width="12" height="12" alt="" style="border:0;vertical-align:middle;"> RP {{empresa.telefoneRP}}</span>
-          <span style="margin-right:5px;"><img src="{{cdn}}/v3/phone.png" width="12" height="12" alt="" style="border:0;vertical-align:middle;"> SP {{empresa.telefoneSP}}</span>
+          <span style="margin-right:5px;"><img src="{{cdn}}/v3/phone.png" width="14" height="14" alt="" style="border:0;vertical-align:middle;"> RP {{empresa.telefoneRP}}</span>
+          <span style="margin-right:5px;"><img src="{{cdn}}/v3/phone.png" width="14" height="14" alt="" style="border:0;vertical-align:middle;"> SP {{empresa.telefoneSP}}</span>
           {{#ramal}}<span>Ramal {{ramal}}</span>{{/ramal}}
-          {{#celular}}<br><img src="{{cdn}}/v3/whatsapp.png" width="12" height="12" alt="" style="border:0;vertical-align:middle;"> {{celular}}{{/celular}}
+          {{#celular}}<br><img src="{{cdn}}/v3/whatsapp.png" width="13" height="13" alt="" style="border:0;vertical-align:middle;"> {{celular}}{{/celular}}
         </div>
-        {{#email}}<div style="margin-top:5px;font-size:11px;color:#ffffff;"><img src="{{cdn}}/v3/email.png" width="12" height="12" alt="" style="border:0;vertical-align:middle;"> <a href="mailto:{{email}}" style="font-size:11px;color:#ffffff;text-decoration:none;">{{email}}</a></div>{{/email}}
+        {{#email}}<div style="margin-top:5px;font-size:11px;color:#ffffff;"><img src="{{cdn}}/v3/email.png" width="13" height="13" alt="" style="border:0;vertical-align:middle;"> <a href="mailto:{{email}}" style="font-size:11px;color:#ffffff;text-decoration:none;">{{email}}</a></div>{{/email}}
         {{#endereco}}<div style="margin-top:5px;font-size:11px;color:#8b9194;">{{endereco.linha1}}<br>{{endereco.linha2}}</div>{{/endereco}}
       </td>
     </tr>
@@ -36,10 +36,10 @@
   <tbody>
     <tr>
       <td style="font-size:11px;line-height:16px;color:#8b9194;">
-        <strong style="display:block;margin-bottom:4px;">{{disclaimer.tituloPT}}</strong>
-        <span style="display:block;margin-bottom:12px;">{{disclaimer.textoPT}}</span>
-        <strong style="display:block;margin-bottom:4px;">{{disclaimer.tituloEN}}</strong>
-        <span style="display:block;">{{disclaimer.textoEN}}</span>
+        <div style="font-weight:bold;margin-bottom:4px;">{{disclaimer.tituloPT}}</div>
+        <div style="margin-bottom:12px;">{{disclaimer.textoPT}}</div>
+        <div style="font-weight:bold;margin-bottom:4px;">{{disclaimer.tituloEN}}</div>
+        <div>{{disclaimer.textoEN}}</div>
       </td>
     </tr>
   </tbody>
