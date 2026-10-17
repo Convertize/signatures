@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  renderSignature, listVersions, getVersionTemplate, buildContext, paramsFromUrl, htmlToText,
+  renderSignature, listVersions, getVersionTemplate, buildContext, paramsFromUrl, htmlToText, withLeadingBreaks,
 } from '../lib/core.js';
 import { CDN_BASE, empresa } from '../config.js';
 
@@ -120,4 +120,10 @@ test('htmlToText tira tags, converte br e entidades', () => {
 
 test('htmlToText remove indentação do template', () => {
   assert.equal(htmlToText('<div>\n  <b>A</b><br>B\n</div>'), 'A\nB');
+});
+
+test('withLeadingBreaks prefixa linhas em branco no formato do Gmail', () => {
+  assert.equal(withLeadingBreaks('<p>x</p>'), '<div><br></div><div><br></div><p>x</p>');
+  assert.equal(withLeadingBreaks('<p>x</p>', 0), '<p>x</p>');
+  assert.equal(withLeadingBreaks('<p>x</p>', 1), '<div><br></div><p>x</p>');
 });

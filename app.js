@@ -1,5 +1,5 @@
 import {
-  listVersions, getVersionTemplate, renderSignature, copySignature, copyText, paramsFromUrl,
+  listVersions, getVersionTemplate, renderSignature, copySignature, copyText, paramsFromUrl, withLeadingBreaks,
 } from './lib/signature.js';
 import { toSearchParams, STRING_KEYS } from './lib/params.js';
 
@@ -110,7 +110,7 @@ function bindCopy(button, action) {
 }
 
 bindCopy(btnGmail, copySignature);
-bindCopy(btnHtml, copyText);
+bindCopy(btnHtml, (html) => copyText(withLeadingBreaks(html)));
 
 form.addEventListener('input', update);
 form.addEventListener('change', async (event) => {
