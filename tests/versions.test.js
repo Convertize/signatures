@@ -5,16 +5,16 @@ import { render } from '../lib/template.js';
 import { buildContext } from '../lib/core.js';
 
 const root = new URL('../', import.meta.url);
-const themes = JSON.parse(await readFile(new URL('themes.json', root), 'utf8'));
+const versions = JSON.parse(await readFile(new URL('versions.json', root), 'utf8'));
 const BLOCKS = ['cargo', 'ramal', 'celular', 'email', 'endereco', 'disclaimer'];
 const FULL = {
   nome: 'Ana Souza', cargo: 'Desenvolvedora', email: 'ana@convertize.com.br',
   celular: '+55 (16) 99999-0000', ramal: '201', endereco: true, disclaimer: true,
 };
 
-assert.ok(themes.length >= 3, 'themes.json deve listar v1, v2 e v3');
+assert.ok(versions.length >= 3, 'versions.json deve listar v1, v2 e v3');
 
-for (const { id } of themes) {
+for (const { id } of versions) {
   const template = await readFile(new URL(`${id}/theme.html`, root), 'utf8');
 
   test(`${id}: declara todos os blocos`, () => {
@@ -29,7 +29,7 @@ for (const { id } of themes) {
   });
 
   test(`${id}: completo renderiza todos os dados`, () => {
-    const html = render(template, buildContext({ theme: id, ...FULL }, { cdn: 'https://cdn.test' }));
+    const html = render(template, buildContext({ versao: id, ...FULL }, { cdn: 'https://cdn.test' }));
     const esperados = [
       'Ana Souza', 'Desenvolvedora', '201', '+55 (16) 99999-0000', 'mailto:ana@convertize.com.br',
       'Rua Maestro Joaquim Rangel, 795', '14025-610', 'AVISO LEGAL', 'DISCLAIMER',
@@ -40,7 +40,7 @@ for (const { id } of themes) {
   });
 
   test(`${id}: só com nome esconde os blocos opcionais`, () => {
-    const html = render(template, buildContext({ theme: id, nome: 'Ana Souza' }));
+    const html = render(template, buildContext({ versao: id, nome: 'Ana Souza' }));
     for (const s of ['Desenvolvedora', 'Ramal', 'mailto:', 'Rua Maestro', 'AVISO LEGAL', 'DISCLAIMER']) {
       assert.ok(!html.includes(s), `não devia ter "${s}"`);
     }

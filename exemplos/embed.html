@@ -14,14 +14,14 @@
 </head>
 <body>
   <h1>Embed via tag</h1>
-  <convertize-signature base-url="../" theme="v1" nome="Gabriel Galiaso" cargo="CEO" ramal="201" endereco disclaimer botao-copiar></convertize-signature>
+  <convertize-signature base-url="../" versao="v1" nome="Gabriel Galiaso" cargo="CEO" ramal="201" endereco disclaimer botao-copiar></convertize-signature>
 
   <h1>Embed via API</h1>
   <div id="api"></div>
   <script type="module">
     import { renderSignature } from '../lib/signature.js';
     document.getElementById('api').innerHTML = await renderSignature(
-      { theme: 'v3', nome: 'Gabriel Galiaso', cargo: 'CEO', email: 'gabriel@convertize.com.br', celular: '+55 (16) 99999-0000' },
+      { versao: 'v3', nome: 'Gabriel Galiaso', cargo: 'CEO', email: 'gabriel@convertize.com.br', celular: '+55 (16) 99999-0000' },
       { baseUrl: '../' },
     );
   </script>

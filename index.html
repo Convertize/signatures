@@ -13,8 +13,8 @@
   </header>
   <main class="layout">
     <form id="form" class="painel" autocomplete="off">
-      <label>Tema
-        <select name="theme" id="theme"></select>
+      <label>Versão
+        <select name="versao" id="versao"></select>
       </label>
       <label>Nome
         <input name="nome" type="text" placeholder="Seu nome" required>
@@ -41,12 +41,13 @@
       <div class="acoes">
         <button type="button" id="copiar-gmail">Copiar para o Gmail</button>
         <button type="button" id="copiar-html" class="secundario">Copiar código HTML</button>
+        <a class="botao-link" href="https://mail.google.com/mail/u/0/#settings/general" target="_blank" rel="noopener">Abrir configurações do Gmail</a>
       </div>
       <details class="tutorial">
         <summary>Como configurar no Gmail</summary>
         <ol>
           <li>Clique em <strong>Copiar para o Gmail</strong> acima.</li>
-          <li>No Gmail, clique na engrenagem (canto superior direito) e em <strong>Ver todas as configurações</strong>.</li>
+          <li>Abra <a href="https://mail.google.com/mail/u/0/#settings/general" target="_blank" rel="noopener">as configurações do Gmail</a> (ou, no Gmail, clique na engrenagem e em <strong>Ver todas as configurações</strong>).</li>
           <li>Na aba <strong>Geral</strong>, role até <strong>Assinatura</strong> e clique em <strong>Criar nova</strong>. Dê um nome, por exemplo "Convertize".</li>
           <li>Clique dentro da caixa de edição da assinatura e cole com <kbd>Ctrl</kbd>+<kbd>V</kbd> (Windows) ou <kbd>Cmd</kbd>+<kbd>V</kbd> (Mac).</li>
           <li>Em <strong>Padrões de assinatura</strong>, selecione essa assinatura para <em>novos e-mails</em> e para <em>respostas/encaminhamentos</em>.</li>

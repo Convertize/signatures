@@ -1,5 +1,5 @@
 import {
-  listThemes, getThemeTemplate, renderSignature, copySignature, copyText, paramsFromUrl,
+  listVersions, getVersionTemplate, renderSignature, copySignature, copyText, paramsFromUrl,
 } from './lib/signature.js';
 import { toSearchParams, STRING_KEYS } from './lib/params.js';
 
@@ -8,7 +8,7 @@ const TOGGLES = { mostrarCargo: 'cargo', endereco: 'endereco', disclaimer: 'disc
 
 const form = document.getElementById('form');
 const preview = document.getElementById('preview');
-const themeSelect = document.getElementById('theme');
+const versaoSelect = document.getElementById('versao');
 const btnGmail = document.getElementById('copiar-gmail');
 const btnHtml = document.getElementById('copiar-html');
 
@@ -18,7 +18,7 @@ let seq = 0;
 function readForm() {
   const el = form.elements;
   return {
-    theme: el.theme.value,
+    versao: el.versao.value,
     nome: el.nome.value,
     cargo: el.mostrarCargo.checked ? el.cargo.value : '',
     email: el.email.value,
@@ -31,13 +31,13 @@ function readForm() {
 
 function fillForm(params) {
   const el = form.elements;
-  themeSelect.value = params.theme;
-  if (themeSelect.selectedIndex === -1) {
-    // Unknown theme in the URL: keep it selectable so the render shows "Tema desconhecido".
+  versaoSelect.value = params.versao;
+  if (versaoSelect.selectedIndex === -1) {
+    // Unknown version in the URL: keep it selectable so the render shows "Versão desconhecida".
     const option = document.createElement('option');
-    option.value = option.textContent = params.theme;
-    themeSelect.appendChild(option);
-    themeSelect.value = params.theme;
+    option.value = option.textContent = params.versao;
+    versaoSelect.appendChild(option);
+    versaoSelect.value = params.versao;
   }
   for (const key of STRING_KEYS) el[key].value = params[key];
   el.endereco.checked = params.endereco;
@@ -56,13 +56,13 @@ function showError(err) {
   btnGmail.disabled = btnHtml.disabled = true;
 }
 
-async function updateToggles(theme) {
-  const template = await getThemeTemplate(theme, OPTIONS);
+async function updateToggles(versao) {
+  const template = await getVersionTemplate(versao, OPTIONS);
   for (const [field, block] of Object.entries(TOGGLES)) {
     const input = form.elements[field];
     const supported = template.includes(`{{#${block}}}`);
     input.disabled = !supported;
-    input.closest('label').title = supported ? '' : 'Este tema não tem este bloco';
+    input.closest('label').title = supported ? '' : 'Esta versão não tem este bloco';
   }
 }
 
@@ -110,9 +110,9 @@ bindCopy(btnHtml, copyText);
 
 form.addEventListener('input', update);
 form.addEventListener('change', async (event) => {
-  if (event.target === themeSelect) {
+  if (event.target === versaoSelect) {
     try {
-      await updateToggles(themeSelect.value);
+      await updateToggles(versaoSelect.value);
     } catch (err) {
       showError(err);
       return;
@@ -123,15 +123,15 @@ form.addEventListener('change', async (event) => {
 
 async function init() {
   try {
-    const themes = await listThemes(OPTIONS);
-    for (const theme of themes) {
+    const versions = await listVersions(OPTIONS);
+    for (const v of versions) {
       const option = document.createElement('option');
-      option.value = theme.id;
-      option.textContent = theme.label;
-      themeSelect.appendChild(option);
+      option.value = v.id;
+      option.textContent = v.label;
+      versaoSelect.appendChild(option);
     }
     fillForm(paramsFromUrl());
-    await updateToggles(themeSelect.value);
+    await updateToggles(versaoSelect.value);
     await update();
   } catch (err) {
     showError(err);
