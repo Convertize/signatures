@@ -1,37 +1,42 @@
-<div>
-    <table cellpadding="0" cellspacing="0" width="568" bgcolor="#fafafa">
-        <tbody>
-            <tr>
-                <td width="205" valign="center" rowspan="2">
-                    <a href="https://www.convertize.com.br/" target="_blank">
-                        <img src="https://www.convertize.com.br/s/signature-v2/logo.png" alt="Convertize">
-                    </a>
-                </td>
-                <td width="50">
-                    <div style="width:20px;height:1px">&nbsp;</div>
-                </td>
-                <td width="323" valign="center">
-                    <div style="font-family:Arial,sans-serif;font-size:20px;font-weight:600;color:#000000;">
-                        <span>Luana Matos</span>
-                    </div>
-                    <div style="font-family:Arial,sans-serif;font-size:14px;color:#d8643d;margin-top:3px;">
-                        <span>Desenvolvedora Front-End</span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td width="50">
-                    <div style="width:20px;height:1px">&nbsp;</div>
-                </td>
-                <td colspan="2" valign="center">
-                    <div style="font-family:Arial,sans-serif;font-size:13px;color:#333333;">
-                        <span><img src="https://www.convertize.com.br/s/signature-v2/phone.png" width="10" height="10" style="border:0px;padding-right:5px;"><strong>RP:</strong> 16 3075.7676</span>&nbsp;&nbsp;&nbsp;&nbsp;<span><img src="https://www.convertize.com.br/s/signature-v2/phone.png" width="10" height="10" style="border:0px;padding-right:5px;"><strong>SP:</strong> 11 4010.7676</span>
-                    </div>
-                    <div style="font-family:Arial,sans-serif;font-size:15px;color:#333333;margin-top:5px;">
-                        <span>www.<strong>convertize</strong>.com.br</span>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<table cellpadding="0" cellspacing="0" width="568" bgcolor="#fafafa" style="font-family:Arial,sans-serif;">
+  <tbody>
+    <tr>
+      <td width="205" valign="middle" rowspan="2">
+        <a href="{{empresa.site}}" target="_blank"><img src="{{cdn}}/v2/logo.png" width="205" height="135" alt="Convertize" style="border:0;display:block;"></a>
+      </td>
+      <td width="20"><div style="width:20px;height:1px;">&nbsp;</div></td>
+      <td width="343" valign="middle">
+        <div style="font-size:20px;font-weight:600;color:#000000;">{{nome}}</div>
+        {{#cargo}}<div style="font-size:14px;color:#d8643d;margin-top:3px;">{{cargo}}</div>{{/cargo}}
+      </td>
+    </tr>
+    <tr>
+      <td width="20"><div style="width:20px;height:1px;">&nbsp;</div></td>
+      <td valign="middle">
+        <div style="font-size:13px;color:#333333;line-height:20px;">
+          <img src="{{cdn}}/v2/phone.png" width="10" height="10" alt="" style="border:0;padding-right:5px;"><strong>RP:</strong> {{empresa.telefoneRP}}&nbsp;&nbsp;&nbsp;<img src="{{cdn}}/v2/phone.png" width="10" height="10" alt="" style="border:0;padding-right:5px;"><strong>SP:</strong> {{empresa.telefoneSP}}{{#ramal}}&nbsp;&nbsp;&nbsp;<strong>Ramal:</strong> {{ramal}}{{/ramal}}
+          {{#celular}}<br><strong>Celular:</strong> {{celular}}{{/celular}}
+          {{#email}}<br><a href="mailto:{{email}}" style="color:#333333;text-decoration:none;">{{email}}</a>{{/email}}
+          {{#endereco}}<br>{{endereco.linha1}}<br>{{endereco.linha2}}{{/endereco}}
+        </div>
+        <div style="font-size:15px;color:#333333;margin-top:5px;">
+          <a href="{{empresa.site}}" target="_blank" style="color:#333333;text-decoration:none;">www.<strong>convertize</strong>.com.br</a>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{{#disclaimer}}
+<table cellpadding="0" cellspacing="0" width="568" style="font-family:Arial,sans-serif;margin-top:15px;">
+  <tbody>
+    <tr>
+      <td style="font-size:11px;line-height:16px;color:#777777;">
+        <strong style="display:block;margin-bottom:4px;">{{disclaimer.tituloPT}}</strong>
+        <span style="display:block;margin-bottom:12px;">{{disclaimer.textoPT}}</span>
+        <strong style="display:block;margin-bottom:4px;">{{disclaimer.tituloEN}}</strong>
+        <span style="display:block;">{{disclaimer.textoEN}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{{/disclaimer}}
