@@ -1478,21 +1478,21 @@ Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
 ````markdown
 # Assinaturas de e-mail Convertize
 
-Gerador estático de assinaturas, com temas versionados em `v1/`, `v2/`, `v3/`. Roda no GitHub Pages; biblioteca, temas e imagens são servidos pelo jsDelivr. Sem servidor, sem build.
+Gerador estático de assinaturas, com versões em `v1/`, `v2/`, `v3/`. Roda no GitHub Pages; biblioteca, temas e imagens são servidos pelo jsDelivr. Sem servidor, sem build.
 
 ## Usar o gerador
 
-Abra a página publicada, preencha os campos e clique em **Copiar para o Gmail**. O tutorial de configuração do Gmail está na própria página.
+Abra a página publicada, preencha os campos e clique em **Copiar para o Gmail**. O tutorial de configuração do Gmail está na própria página, com o link direto para a tela de assinatura do Gmail.
 
 Todos os campos podem vir pela URL, para abrir já preenchido:
 
 ```
-https://OWNER.github.io/REPO/?theme=v1&nome=Gabriel+Galiaso&cargo=CEO&ramal=201&celular=%2B55+16+99999-0000&email=gabriel@convertize.com.br&endereco=1&disclaimer=1
+https://OWNER.github.io/REPO/?versao=v1&nome=Gabriel+Galiaso&cargo=CEO&ramal=201&celular=%2B55+16+99999-0000&email=gabriel@convertize.com.br&endereco=1&disclaimer=1
 ```
 
 | parâmetro | tipo | observação |
 |---|---|---|
-| `theme` | string | `v1` (padrão), `v2`, `v3` |
+| `versao` | string | `v1` (padrão), `v2`, `v3` |
 | `nome` | string | obrigatório |
 | `cargo`, `email`, `celular`, `ramal` | string | opcionais; ausente = não aparece |
 | `endereco`, `disclaimer` | booleano | `1`, `true` ou `sim` liga |
@@ -1502,26 +1502,26 @@ https://OWNER.github.io/REPO/?theme=v1&nome=Gabriel+Galiaso&cargo=CEO&ramal=201&
 ```html
 <script type="module" src="https://cdn.jsdelivr.net/gh/OWNER/REPO@main/lib/signature.js"></script>
 
-<convertize-signature theme="v1" nome="Gabriel Galiaso" cargo="CEO" ramal="201" endereco disclaimer botao-copiar></convertize-signature>
+<convertize-signature versao="v1" nome="Gabriel Galiaso" cargo="CEO" ramal="201" endereco disclaimer botao-copiar></convertize-signature>
 ```
 
 Ou por código:
 
 ```js
-import { renderSignature, copySignature, listThemes } from 'https://cdn.jsdelivr.net/gh/OWNER/REPO@main/lib/signature.js';
+import { renderSignature, copySignature, listVersions } from 'https://cdn.jsdelivr.net/gh/OWNER/REPO@main/lib/signature.js';
 
-const html = await renderSignature({ theme: 'v1', nome: 'Gabriel Galiaso', cargo: 'CEO', ramal: '201', endereco: true, disclaimer: true });
+const html = await renderSignature({ versao: 'v1', nome: 'Gabriel Galiaso', cargo: 'CEO', ramal: '201', endereco: true, disclaimer: true });
 await copySignature(html); // coloca a assinatura formatada no clipboard
 ```
 
-Também disponível em `window.ConvertizeSignature` depois que o script carrega. Atributos do elemento: os mesmos parâmetros, mais `botao-copiar` (mostra um botão "Copiar assinatura") e `base-url` (de onde ler temas; padrão é o jsDelivr).
+Também disponível em `window.ConvertizeSignature` depois que o script carrega. Atributos do elemento: os mesmos parâmetros, mais `botao-copiar` (mostra um botão "Copiar assinatura") e `base-url` (de onde ler as versões; padrão é o jsDelivr).
 
-## Adicionar um tema
+## Adicionar uma versão
 
-1. Crie `v4/theme.html` e as imagens em `v4/`.
+1. Crie `v4/theme.html` e as imagens em `v4/` (o nome do arquivo `theme.html` é fixo).
 2. Use as variáveis `{{nome}} {{cargo}} {{email}} {{celular}} {{ramal}}`, `{{cdn}}/v4/arquivo.png` nas imagens, `{{empresa.telefoneRP}}` etc. de `config.js`, e os blocos opcionais `{{#cargo}}...{{/cargo}}`, `{{#ramal}}`, `{{#celular}}`, `{{#email}}`, `{{#endereco}}` (`{{endereco.linha1}}`, `{{endereco.linha2}}`) e `{{#disclaimer}}` (`{{disclaimer.tituloPT}}`, `{{disclaimer.textoPT}}`, `{{disclaimer.tituloEN}}`, `{{disclaimer.textoEN}}`).
-3. Acrescente `{ "id": "v4", "label": "Nome do tema" }` em `themes.json`.
-4. Rode `npm test`: os testes verificam todos os temas listados.
+3. Acrescente `{ "id": "v4", "label": "v4" }` em `versions.json`.
+4. Rode `npm test`: os testes verificam todas as versões listadas.
 
 ## Desenvolvimento
 
@@ -1530,7 +1530,7 @@ npm test                      # testes (Node 22, sem dependências)
 python3 -m http.server 8765   # abra http://localhost:8765/
 ```
 
-`exemplos/embed.html` mostra a tag e a API funcionando com os temas locais.
+`exemplos/embed.html` mostra a tag e a API funcionando com as versões locais.
 
 ## Deploy
 
@@ -1548,13 +1548,125 @@ python3 -m http.server 8765   # abra http://localhost:8765/
 - [ ] **Step 2: Conferir que os exemplos do README batem com o código**
 
 Run: `grep -n "export" lib/core.js lib/clipboard.js | grep -oE "function \w+|export \* from" | sort -u`
-Expected: inclui `renderSignature`, `copySignature`, `listThemes`, `getThemeTemplate`, `copyText`, `paramsFromUrl`, `buildContext`, `htmlToText`.
+Expected: inclui `renderSignature`, `copySignature`, `listVersions`, `getVersionTemplate`, `copyText`, `paramsFromUrl`, `buildContext`, `htmlToText`.
 
 - [ ] **Step 3: Commit**
 
 ```bash
 git add README.md
 git commit -m "Add README with usage, embed API, theme authoring and deploy notes
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
+```
+
+---
+
+### Task 8: Renomear "tema" para "versão" e link direto do Gmail
+
+**Files:**
+- Modify: `lib/params.js`, `lib/core.js`, `lib/element.js`, `app.js`, `index.html`, `styles.css`, `exemplos/embed.html`
+- Rename: `themes.json` → `versions.json`; `tests/themes.test.js` → `tests/versions.test.js`
+- Modify tests: `tests/params.test.js`, `tests/core.test.js`, `tests/versions.test.js`
+
+**Interfaces:**
+- Consumes: tudo das Tasks 1-6.
+- Produces (nomes públicos finais): parâmetro `versao` (URL, função e atributo) no lugar de `theme`; `DEFAULT_VERSAO` no lugar de `DEFAULT_THEME`; `listVersions` no lugar de `listThemes`; `getVersionTemplate` no lugar de `getThemeTemplate`; manifesto `versions.json`; erro `Versão desconhecida: <id>`. Os arquivos `vN/theme.html` e `config.js` não mudam.
+
+Motivo: o usuário prefere falar em "versão v1, v2, v3" em vez de "tema". Nada foi publicado ainda, então não há compatibilidade a manter: não deixe alias `theme`.
+
+- [ ] **Step 1: Renomear o manifesto e os rótulos**
+
+```bash
+git mv themes.json versions.json
+```
+
+Conteúdo de `versions.json`:
+
+```json
+[
+  { "id": "v1", "label": "v1" },
+  { "id": "v2", "label": "v2" },
+  { "id": "v3", "label": "v3" }
+]
+```
+
+- [ ] **Step 2: Atualizar os testes primeiro (RED)**
+
+Em `tests/params.test.js`: importar `DEFAULT_VERSAO` em vez de `DEFAULT_THEME`; trocar toda chave `theme` por `versao` nos objetos esperados e nas entradas (`'?theme=v2&...'` vira `'?versao=v2&...'`; `'theme=v1&nome=Ana'` vira `'versao=v1&nome=Ana'`; `'theme=v3&nome=Ana&ramal=201&endereco=1'` vira `'versao=v3&nome=Ana&ramal=201&endereco=1'`); o teste "theme vazio ou só espaços cai no default" vira "versao vazia ou só espaços cai no default" com `parseParams({ versao: '  ' }).versao`.
+
+Em `tests/core.test.js`: importar `listVersions` e `getVersionTemplate`; o fake de arquivos usa `${baseUrl}/versions.json`; todo `theme: 'vt'` vira `versao: 'vt'`; o teste de tema desconhecido vira "versão desconhecida ou com caminho relativo falha sem buscar o arquivo" e espera `/Versão desconhecida: v9/` e `/Versão desconhecida: \.\.\/x/`, com `calls.every((url) => url.endsWith('/versions.json'))`; o teste de cache conta `/versions.json`; `paramsFromUrl('https://x.test/app/?nome=Ana+Souza&disclaimer=1&versao=v2')` espera `p.versao === 'v2'`; o teste `listThemes devolve o manifesto` vira `listVersions devolve o manifesto`.
+
+`git mv tests/themes.test.js tests/versions.test.js` e dentro dele: ler `versions.json`; `buildContext({ versao: id, ...FULL }, ...)` e `buildContext({ versao: id, nome: 'Ana Souza' })`; mensagem do `assert.ok(themes.length >= 3, ...)` vira `'versions.json deve listar v1, v2 e v3'`; renomear a variável `themes` para `versions`.
+
+Run: `npm test`
+Expected: falhas em params, core e versions (nomes ainda não existem).
+
+- [ ] **Step 3: Renomear no código (GREEN)**
+
+`lib/params.js`: `export const DEFAULT_VERSAO = 'v1';`; em `parseParams`, `const params = { versao: clean(raw.versao) || DEFAULT_VERSAO };`; em `toSearchParams`, `sp.set('versao', p.versao);`.
+
+`lib/core.js`: `const VERSION_ID = /^[a-z0-9_-]+$/i;`; `listVersions` busca `versions.json`; `getVersionTemplate(versao, options)` valida com `VERSION_ID` e com o manifesto e lança `new Error(\`Versão desconhecida: ${versao}\`)`; chave de cache `${baseUrl}|${versao}`; `renderSignature` usa `getVersionTemplate(p.versao, options)`.
+
+`lib/element.js`: `observedAttributes` devolve `['versao', ...STRING_KEYS, ...BOOL_KEYS, 'botao-copiar', 'base-url']`; `#params()` lê `['versao', ...STRING_KEYS]`.
+
+`app.js`: importar `listVersions, getVersionTemplate` e usar nos lugares de `listThemes, getThemeTemplate`; renomear `themeSelect` para `versaoSelect` (id `versao`); `readForm` devolve `versao: el.versao.value`; `fillForm` usa `params.versao`; `updateToggles(versao)`; no `change`, comparar com `versaoSelect`.
+
+`index.html`: o campo vira
+
+```html
+<label>Versão
+  <select name="versao" id="versao"></select>
+</label>
+```
+
+`exemplos/embed.html`: `versao="v1"` na tag e `{ versao: 'v3', ... }` na chamada da API.
+
+Run: `npm test`
+Expected: 48 testes, todos `ok`, sem nenhum `theme` restante em `lib/`, `app.js`, `index.html`, `exemplos/`, `tests/` (`grep -rn "theme" lib app.js index.html exemplos tests` deve devolver só ocorrências de `theme.html`, que é o nome fixo do arquivo de template).
+
+- [ ] **Step 4: Link direto para as configurações do Gmail**
+
+Em `index.html`, dentro de `.acoes`, depois do botão "Copiar código HTML":
+
+```html
+<a class="botao-link" href="https://mail.google.com/mail/u/0/#settings/general" target="_blank" rel="noopener">Abrir configurações do Gmail</a>
+```
+
+E o passo 2 do tutorial passa a ser:
+
+```html
+<li>Abra <a href="https://mail.google.com/mail/u/0/#settings/general" target="_blank" rel="noopener">as configurações do Gmail</a> (ou, no Gmail, clique na engrenagem e em <strong>Ver todas as configurações</strong>).</li>
+```
+
+Em `styles.css`, logo após a regra `.acoes button.secundario { ... }`:
+
+```css
+.acoes .botao-link {
+  display: inline-block;
+  padding: 10px 16px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--brand-dark);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  text-decoration: none;
+}
+```
+
+- [ ] **Step 5: Verificar no navegador**
+
+```bash
+cd /Users/gabrielgaliaso/Projects/convertize-signatures && (python3 -m http.server 8765 >/dev/null 2>&1 &) ; sleep 1; curl -s -o /dev/null -w '%{http_code}\n' http://localhost:8765/
+```
+
+Abrir `http://localhost:8765/?versao=v2&nome=Gabriel+Galiaso&cargo=CEO&ramal=201&endereco=1&disclaimer=1` e confirmar: rótulo "Versão" com opções v1, v2, v3; v2 selecionada e renderizada; trocar para v3 muda a URL para `versao=v3`; o link "Abrir configurações do Gmail" aparece ao lado dos botões e aponta para `https://mail.google.com/mail/u/0/#settings/general` com `target="_blank"`; `?versao=v9&nome=Teste` mostra "Versão desconhecida: v9"; `exemplos/embed.html` renderiza as duas assinaturas; console sem erros (favicon 404 ignorado). Encerrar: `pkill -f "http.server 8765"`.
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add -A lib app.js index.html styles.css exemplos tests versions.json
+git commit -m "Rename theme to versao across URL, API and UI; add Gmail settings link
 
 Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
 ```
