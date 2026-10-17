@@ -126,7 +126,7 @@ Os três temas existentes são limpos (removido lixo do Gmail: divs aninhadas, `
 
 - `template.test.js`: substituição simples, chave aninhada, escape de HTML, chave ausente vira vazio, bloco truthy renderiza, bloco falsy some, blocos aninhados, texto fora das tags intocado.
 - `params.test.js`: parse de `URLSearchParams` e objeto, booleanos (`1`/`true`/`sim`/ausente/`0`), trim, defaults, chaves desconhecidas ignoradas, `toSearchParams` omite vazios e faz round-trip.
-- `signature.test.js`: `renderSignature` com `fetch` injetado (opção `fetch` nas funções) usando um template de teste: campos aparecem, blocos somem quando flag off, `cdn` substituído, tema desconhecido lança erro.
+- `core.test.js`: `renderSignature` com `fetch` injetado (opção `fetch` nas funções) usando um template de teste: campos aparecem, blocos somem quando flag off, `cdn` substituído, tema desconhecido lança erro.
 - Verificação manual no navegador (Chrome) ao final: abrir `index.html` via servidor local, preencher, copiar, colar no Gmail.
 
 ## Deploy
