@@ -17,8 +17,11 @@ assert.ok(versions.length >= 3, 'versions.json deve listar v1, v2 e v3');
 for (const { id } of versions) {
   const template = await readFile(new URL(`${id}/theme.html`, root), 'utf8');
 
-  test(`${id}: declara todos os blocos`, () => {
-    for (const block of BLOCKS) assert.ok(template.includes(`{{#${block}}}`), `falta {{#${block}}}`);
+  // v1–v3 trazem todos os blocos; a partir da v4 a versão pode ser enxuta (o formulário esconde o que ela não usa).
+  const has = (block) => template.includes(`{{#${block}}}`);
+  test(`${id}: declara os blocos esperados`, () => {
+    assert.ok(has('cargo'), 'falta {{#cargo}}');
+    if (['v1', 'v2', 'v3'].includes(id)) for (const block of BLOCKS) assert.ok(has(block), `falta {{#${block}}}`);
   });
 
   test(`${id}: não usa imagens do domínio antigo nem lixo do Gmail`, () => {
@@ -49,10 +52,13 @@ for (const { id } of versions) {
 
   test(`${id}: completo renderiza todos os dados`, () => {
     const html = render(template, buildContext({ versao: id, ...FULL }, { cdn: 'https://cdn.test' }));
+    const porBloco = {
+      ramal: ['201'], celular: ['+55 (16) 99999-0000'], email: ['mailto:ana@convertize.com.br'],
+      endereco: ['Rua Maestro Joaquim Rangel, 795', '14025-610'], disclaimer: ['AVISO LEGAL', 'DISCLAIMER'],
+    };
     const esperados = [
-      'Ana Souza', 'Desenvolvedora', '201', '+55 (16) 99999-0000', 'mailto:ana@convertize.com.br',
-      'Rua Maestro Joaquim Rangel, 795', '14025-610', 'AVISO LEGAL', 'DISCLAIMER',
-      '+55 (16) 3075.7676', '+55 (11) 4010.7676', `https://cdn.test/${id}/logo.png`,
+      'Ana Souza', 'Desenvolvedora', '+55 (16) 3075.7676', '+55 (11) 4010.7676', `https://cdn.test/${id}/logo.png`,
+      ...Object.entries(porBloco).flatMap(([block, s]) => (has(block) ? s : [])),
     ];
     for (const s of esperados) assert.ok(html.includes(s), `faltou "${s}"`);
     assert.ok(!html.includes('{{'), 'sobrou tag de template');
