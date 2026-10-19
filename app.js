@@ -83,6 +83,13 @@ async function update() {
     if (mySeq !== seq) return;
     currentHtml = html;
     preview.innerHTML = html;
+    // Versão ainda não publicada no CDN: a prévia usa a imagem local; o HTML copiado continua apontando para o CDN.
+    for (const img of preview.querySelectorAll('img')) {
+      img.addEventListener('error', () => {
+        const local = new URL(img.src).pathname.match(/\/(v\d+\/[^/]+)$/);
+        if (local && !img.dataset.local) { img.dataset.local = '1'; img.src = `./${local[1]}`; }
+      }, { once: true });
+    }
     preview.classList.remove('erro');
     btnGmail.disabled = btnHtml.disabled = !hasName;
   } catch (err) {
