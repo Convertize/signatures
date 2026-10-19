@@ -1,6 +1,6 @@
 # Assinaturas de e-mail Convertize
 
-Gerador estático de assinaturas, com versões em `v1/`, `v2/`, `v3/`. A página roda no GitHub Pages; a biblioteca, os templates e as imagens são servidos pelo jsDelivr. Sem servidor, sem build.
+Gerador estático de assinaturas, com versões em `v1/`, `v2/`, `v3/`, `v4/`. A página roda no GitHub Pages; a biblioteca, os templates e as imagens são servidos pelo jsDelivr. Sem servidor, sem build.
 
 ## Usar o gerador
 
@@ -16,7 +16,7 @@ https://convertize.github.io/signatures/?versao=v1&nome=Gabriel+Galiaso&cargo=CE
 
 | parâmetro | tipo | observação |
 |---|---|---|
-| `versao` | string | `v1` (padrão), `v2`, `v3` |
+| `versao` | string | `v1` (padrão), `v2`, `v3`, `v4` |
 | `nome` | string | obrigatório |
 | `cargo`, `email`, `celular`, `ramal` | string | opcionais; ausente = não aparece |
 | `endereco`, `disclaimer` | booleano | `1`, `true` ou `sim` liga |

@@ -1,0 +1,42 @@
+<table cellpadding="0" cellspacing="0" width="500" bgcolor="#000000" style="font-family:Inter,Arial,sans-serif;background:#000000;">
+  <tbody>
+    <tr>
+      <td width="200" valign="middle" bgcolor="#000000" style="padding:18px 0 18px 29px;background:#000000;white-space:nowrap;">
+        <div style="font-size:20px;line-height:24px;font-weight:500;color:#fafafa;letter-spacing:-0.3px;">{{nome}}</div>
+        {{#cargo}}<div style="margin-top:3px;font-size:12px;line-height:16px;font-weight:500;letter-spacing:0.5px;color:#ff5e2c;">{{cargo}}</div>{{/cargo}}
+        <div style="margin-top:12px;font-size:10px;line-height:15px;letter-spacing:0.4px;color:#fafafa;">
+          <span style="font-size:7px;font-weight:500;letter-spacing:0.7px;color:#a8a29e;">TEL</span>&nbsp; {{empresa.telefoneRP}}&nbsp;&nbsp;&nbsp;&nbsp;{{empresa.telefoneSP}}{{#ramal}}&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:7px;font-weight:500;letter-spacing:0.7px;color:#a8a29e;">RAMAL</span>&nbsp; {{ramal}}{{/ramal}}<br>
+          {{#celular}}<span style="font-size:7px;font-weight:500;letter-spacing:0.7px;color:#a8a29e;">CEL</span>&nbsp; {{celular}}<br>{{/celular}}
+          {{#email}}<span style="font-size:7px;font-weight:500;letter-spacing:0.7px;color:#a8a29e;">EMAIL</span>&nbsp; <a href="mailto:{{email}}" style="color:#fafafa;text-decoration:none;">{{email}}</a><br>{{/email}}
+          <span style="font-size:7px;font-weight:500;letter-spacing:0.7px;color:#a8a29e;">WEB</span>&nbsp; <a href="{{empresa.site}}" target="_blank" style="color:#fafafa;text-decoration:none;">{{empresa.siteLabel}}</a>
+        </div>
+      </td>
+      <td width="300" valign="bottom" bgcolor="#000000" style="background:#000000;line-height:0;font-size:0;">
+        <a href="{{empresa.site}}" target="_blank"><img src="{{cdn}}/v4/logo.png" width="300" height="130" alt="Convertize" style="border:0;display:block;"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{{#endereco}}
+<table cellpadding="0" cellspacing="0" width="500" style="font-family:Inter,Arial,sans-serif;margin-top:8px;">
+  <tbody>
+    <tr>
+      <td style="font-size:11px;line-height:16px;color:#78716c;">{{endereco.linha1}}<br>{{endereco.linha2}}</td>
+    </tr>
+  </tbody>
+</table>
+{{/endereco}}
+{{#disclaimer}}
+<table cellpadding="0" cellspacing="0" width="500" style="font-family:Arial,sans-serif;margin-top:15px;">
+  <tbody>
+    <tr>
+      <td style="font-size:11px;line-height:16px;color:#8b9194;">
+        <div style="font-weight:bold;margin-bottom:4px;">{{disclaimer.tituloPT}}</div>
+        <div style="margin-bottom:12px;">{{disclaimer.textoPT}}</div>
+        <div style="font-weight:bold;margin-bottom:4px;">{{disclaimer.tituloEN}}</div>
+        <div>{{disclaimer.textoEN}}</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{{/disclaimer}}
