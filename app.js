@@ -5,8 +5,6 @@ import { toSearchParams, STRING_KEYS } from './lib/params.js';
 
 const OPTIONS = { baseUrl: './' };
 const TOGGLES = { mostrarCargo: 'cargo', endereco: 'endereco', disclaimer: 'disclaimer' };
-// Campos de texto que só aparecem no formulário se a versão tiver o bloco
-const FIELDS = { cargo: 'cargo', email: 'email', celular: 'celular', ramal: 'ramal' };
 
 const form = document.getElementById('form');
 const preview = document.getElementById('preview');
@@ -22,12 +20,12 @@ function readForm() {
   return {
     versao: el.versao.value,
     nome: el.nome.value,
-    cargo: el.mostrarCargo.checked && !el.cargo.disabled ? el.cargo.value : '',
-    email: el.email.disabled ? '' : el.email.value,
-    celular: el.celular.disabled ? '' : el.celular.value,
-    ramal: el.ramal.disabled ? '' : el.ramal.value,
-    endereco: el.endereco.checked && !el.endereco.disabled,
-    disclaimer: el.disclaimer.checked && !el.disclaimer.disabled,
+    cargo: el.mostrarCargo.checked ? el.cargo.value : '',
+    email: el.email.value,
+    celular: el.celular.value,
+    ramal: el.ramal.value,
+    endereco: el.endereco.checked,
+    disclaimer: el.disclaimer.checked,
   };
 }
 
@@ -64,12 +62,11 @@ function showError(err) {
 
 async function updateToggles(versao) {
   const template = await getVersionTemplate(versao, OPTIONS);
-  const has = (block) => new RegExp(`\\{\\{#\\s*${block}\\s*\\}\\}`).test(template);
-  // Esconde o que a versão não usa, para o formulário mostrar só o que vai aparecer na assinatura.
-  for (const [field, block] of Object.entries({ ...TOGGLES, ...FIELDS })) {
+  for (const [field, block] of Object.entries(TOGGLES)) {
     const input = form.elements[field];
-    input.disabled = !has(block);
-    input.closest('label').hidden = !has(block);
+    const supported = new RegExp(`\\{\\{#\\s*${block}\\s*\\}\\}`).test(template);
+    input.disabled = !supported;
+    input.closest('label').title = supported ? '' : 'Esta versão não tem este bloco';
   }
 }
 
@@ -83,13 +80,6 @@ async function update() {
     if (mySeq !== seq) return;
     currentHtml = html;
     preview.innerHTML = html;
-    // Versão ainda não publicada no CDN: a prévia usa a imagem local; o HTML copiado continua apontando para o CDN.
-    for (const img of preview.querySelectorAll('img')) {
-      img.addEventListener('error', () => {
-        const local = new URL(img.src).pathname.match(/\/(v\d+\/[^/]+)$/);
-        if (local && !img.dataset.local) { img.dataset.local = '1'; img.src = `./${local[1]}`; }
-      }, { once: true });
-    }
     preview.classList.remove('erro');
     btnGmail.disabled = btnHtml.disabled = !hasName;
   } catch (err) {
