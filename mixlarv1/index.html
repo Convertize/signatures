@@ -32,6 +32,12 @@
   const out = document.getElementById('out');
   const cdn = 'https://cdn.jsdelivr.net/gh/Convertize/signatures@main';
   let html = '';
+  // ?nome=...&cargo=...&email=...&telefone=...&ramal=...&celular=... preenche os campos;
+  // parâmetro presente e vazio apaga o valor padrão (ex.: &telefone= esconde o Fone).
+  const params = new URLSearchParams(location.search);
+  for (const input of f.elements) {
+    if (input.name && params.has(input.name)) input.value = params.get(input.name);
+  }
   function update() {
     html = render(tpl, { cdn, ...Object.fromEntries(new FormData(f)) });
     out.innerHTML = html;
