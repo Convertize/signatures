@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Assinatura Mix Lar</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 32px; color: #222; }
+  form { display: grid; grid-template-columns: 90px 280px; gap: 8px 12px; align-items: center; margin-bottom: 24px; }
+  input { padding: 6px 8px; font-size: 14px; }
+  button { padding: 8px 14px; font-size: 14px; cursor: pointer; }
+  #out { margin: 20px 0; }
+  #status { margin-left: 10px; color: #2a7; }
+</style>
+</head>
+<body>
+<h2>Assinatura Mix Lar</h2>
+<form id="f">
+  <label>Nome</label><input name="nome" value="Dev Team">
+  <label>Cargo</label><input name="cargo" value="Dev">
+  <label>E-mail</label><input name="email" value="dev@mixlar.com.br">
+  <label>Telefone</label><input name="telefone" value="(16)3797-1000">
+  <label>Ramal</label><input name="ramal">
+  <label>Celular</label><input name="celular">
+</form>
+<div id="out"></div>
+<button id="copy">Copiar assinatura</button><span id="status"></span>
+<script type="module">
+  import { render } from '../lib/template.js';
+  import { copySignature } from '../lib/clipboard.js';
+  const tpl = await (await fetch('theme.html', { cache: 'no-store' })).text();
+  const f = document.getElementById('f');
+  const out = document.getElementById('out');
+  const cdn = 'https://cdn.jsdelivr.net/gh/Convertize/signatures@main';
+  let html = '';
+  function update() {
+    html = render(tpl, { cdn, ...Object.fromEntries(new FormData(f)) });
+    out.innerHTML = html;
+  }
+  f.addEventListener('input', update);
+  update();
+  document.getElementById('copy').onclick = async () => {
+    await copySignature(html);
+    document.getElementById('status').textContent = 'Copiado!';
+    setTimeout(() => (document.getElementById('status').textContent = ''), 2000);
+  };
+</script>
+</body>
+</html>
